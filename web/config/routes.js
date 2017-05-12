@@ -36,11 +36,13 @@ module.exports.routes = {
     view: 'static/index'
   },
   
+  '/signup': {
+    view: 'user/new'
+  },
 
-  '/login' : {
+  '/signin': {
     view: 'auth/login'
   }
-
   /***************************************************************************
   *                                                                          *
   * Custom routes here...                                                    *
