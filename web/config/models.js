@@ -17,7 +17,7 @@ module.exports.models = {
   * connections (see `config/connections.js`)                                *
   *                                                                          *
   ***************************************************************************/
-
+  connection: 'mysqlServer',
   /***************************************************************************
   *                                                                          *
   * How and whether Sails will attempt to automatically rebuild the          *
@@ -27,4 +27,7 @@ module.exports.models = {
   *                                                                          *
   ***************************************************************************/
   migrate: 'alter',
+  autoPK: true,
+  autoCreatedAt: true,
+  autoUpdatedAt: true
 };
