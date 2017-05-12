@@ -44,7 +44,7 @@ services:
     image: systemweb
     hostname: systemweb.webservice
     volumes:
-      - ./:/usr/src/app
+      - ./web/:/usr/src/app/
     networks:
       webservice:
         aliases:
