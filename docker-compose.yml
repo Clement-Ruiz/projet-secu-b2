@@ -2,50 +2,49 @@
 version: '2'
 
 networks:
-  web-service:
+  webservice:
     driver: bridge
 
 volumes:
-  system-db:
+  systemdb:
     driver: local
 
-
 services:
-  system-db:
+  systemdb:
     build:
-      context: ./database/
+      context: ./Docker/database/
       dockerfile: Dockerfile
       args:
         # Hardly recommanded to overide these at runtime
         - MYSQL_DATABASE=system
         - MYSQL_USER=system
-        - MYSQL_PASSWORD=Syst€mP4ssw0rd
-        - MYSQL_ROOT_PASSWORD=Ch4ngeM€Qu1ckly
-    image: secu-database
-    hostname: system-db.web-service
+        - MYSQL_PASSWORD=Syst3mP4ssw0rd!
+        - MYSQL_ROOT_PASSWORD=Ch4ngeM3Qu1ckly!
+    image: secudatabase
+    hostname: systemdb.webservice
     volumes:
-      - system-db:/var/lib/mysql
+      - systemdb:/var/lib/mysql
     networks:
-      web-service:
+      webservice:
         aliases:
-          - system-db
-          - system-db.web-service
+          - systemdb
+          - systemdb.webservice
 
-  system-web:
+  systemweb:
     build:
       context: ./web/
       dockerfile: Dockerfile
     # Here mounting docker socket of the host to communicate with docker's API
-    volumes:
+    # volumes:
 
     ports:
       - "56080:1337"
     depends_on:
-      - "system-db"
-    image: secu-web
-    hostname: system-web.web-service
+      - "systemdb"
+    image: systemweb
+    hostname: systemweb.webservice
     networks:
-      web-service:
+      webservice:
         aliases:
-          - system-web
-          - system-web.web-service
+          - systemweb
+          - systemweb.webservice
