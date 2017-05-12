@@ -1,7 +1,7 @@
 /**
- * ServiceController
+ * VpsuserController
  *
- * @description :: Server-side logic for managing services
+ * @description :: Server-side logic for managing vpsusers
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
 
