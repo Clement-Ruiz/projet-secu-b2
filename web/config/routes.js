@@ -43,6 +43,7 @@ module.exports.routes = {
   '/signin': {
     view: 'auth/login'
   }
+  
   /***************************************************************************
   *                                                                          *
   * Custom routes here...                                                    *
