@@ -10,12 +10,23 @@ module.exports = {
   attributes: {
     number: {
       type: 'integer',
-      required: true
-    }
+      required: true,
+      min: 1500,
+      max: 64000
+    },
     container: {
       model: 'container',
       required: true
     },
+    webftp: {
+      model: 'webftp'
+    },
+    vpsuser: {
+      model: 'vpsuser'
+    },
+    vpsroot: {
+      model: 'vpsroot'
+    }
 
   }
 };

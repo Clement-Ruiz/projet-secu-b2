@@ -5,10 +5,22 @@
  * @docs        :: http://sailsjs.org/documentation/concepts/models-and-orm/models
  */
 
-module.exports = {
+ module.exports = {
 
-  attributes: {
-
-  }
-};
-
+   attributes: {
+     name: {
+ 			type: 'string',
+ 			required: true
+ 		},
+ 		ports: {
+ 			collection: 'port',
+ 			via: 'vpsroot'
+ 		},
+     user: {
+       model: 'user'
+     },
+     container: {
+       model: 'container'
+     }
+   }
+ };

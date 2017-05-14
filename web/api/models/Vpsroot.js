@@ -14,7 +14,7 @@ module.exports = {
 		},
 		ports: {
 			collection: 'port',
-			via:
+			via: 'vpsroot'
 		},
     user: {
       model: 'user'

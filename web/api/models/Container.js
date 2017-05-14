@@ -11,14 +11,15 @@ module.exports = {
   attributes: {
     dockerid: {
       type: 'string',
-      unique: true
+      unique: true,
+      hexadecimal: true
     },
     active: {
       type: 'boolean',
       defaultsTo: false
     },
     ports: {
-      collection: 'ports',
+      collection: 'port',
       via: 'container'
     }
 
