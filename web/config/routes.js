@@ -32,18 +32,35 @@ module.exports.routes = {
   *                                                                          *
   ***************************************************************************/
 
-  '/': {
-    view: 'static/index'
+  '/': { view: 'static/index' },
+
+  // Auth routes
+  'get /signup': { view: 'user/new' },
+  'post /signup': {
+    controller: 'UserController',
+    action: 'signUp'
   },
-  
-  '/signup': {
-    view: 'user/new'
+  'get /login': { view: 'auth/login' },
+  'post /login': {
+    controller: 'UserController',
+    action: 'login'
+  },
+  '/logout': 'UserController.logout',
+
+  // User routes
+  'get /user/:id': {
+    controller: 'UserController',
+    action: 'get'
+  },
+  'post /user/:id': {
+    controller: 'UserController',
+    action: 'update'
   },
 
-  '/signin': {
-    view: 'auth/login'
-  }
-  
+
+
+
+
   /***************************************************************************
   *                                                                          *
   * Custom routes here...                                                    *
