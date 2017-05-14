@@ -22,10 +22,12 @@ module.exports = {
     firstName: {
       type: 'string',
       required: true,
+      regex: /^[a-zA-Z -']+$/
     },
     lastName: {
       type: 'string',
       required: true,
+      regex: /^[a-zA-Z -']+$/
     },
     webftps: {
       collection: 'webftp',
