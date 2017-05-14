@@ -9,19 +9,83 @@ module.exports = {
 
 
 	// Charge la page de sign-up --> new.ejs
-	'new': function (req, res) {
-		res.view();
+	signUp: function (req, res) {
+		var mail= req.param("email");
+		User.findOne({
+			email: mail
+		}).exec(function(err, usr){
+			if(err){
+				return res.negociate(err);
+			}
+			else if (usr){
+				return res.send(400, {error: "This email is already used."});
+			}
+			else {
+				User.create(req.param.all()), function userCreated(err, user) {
+					if(err){
+						return res.negociate(err);
+					}
+					if(user) {
+						req.session.userID = user.id;
+						return res.view('user/profile', user);
+					}
+					else {
+						return res.view('user/new', user);
+					}
+				}
+			}
+		});
 	},
 
-	create: function (req, res, next) {
+	login: function (req, res) {
+		var mail= req.param("email");
+		var password= req.param("password");
+		User.findOne({
+			email: mail
+		}).exec(function(err, user){
+			if(err){
+				return res.negociate(err);
+			}
+			if (user) {
+				if (user.password === password){
+					req.session.userID = user.id;
+					return res.redirect('/user/'+req.session.userID);
+				}
+				else {
+					return res.send(400, {error: "Wrong password"});
+				}
+			}
+			else {
+				return res.redirect('/login');
+			}
+		})
+	},
 
+	logout: function (req, res) {
+		req.session.userID = null
+		return res.redirect('/');
+	},
 
-		User.create(req.params.all(), function userCreated (err,user) {
-		
-			if (err) return next(err);	
-			
-			res.json(user);
-		});
-	}
+	get: function(req, res) {
+		if (req.session.userID === 1){
+			var id= req.param("id");
+		}
+		else {
+			var id= req.session.userID;
+		}
+		User.findOne({
+			id: id
+		}).exec(function(err, user){
+			if(err){
+				res.send(400, { error: "What the fuck is going on"});
+			}
+			else{
+				res.view('user/profile', user);
+			}
+		})
+	},
+
+	update: function(req, res) {
+		var id = req.param("id")
+	},
 };
-
