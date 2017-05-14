@@ -10,7 +10,39 @@
  */
 
 module.exports.bootstrap = function(cb) {
-
+  var admin = {
+    id: 1,
+    email: 'admin@webservice.com',
+    password: 'adminpass',
+    firstName: 'Local',
+    lastName: 'Admin'
+  }
+  User.find({id: 1}).exec(function(err, user){
+    if(err){
+      console.log("euuuh. problème à la création de l'admin");
+    }
+    if(!user){
+      User.create(admin).exec(function(err, usr){
+        if(err){
+          console.log("euuuh. problème à la création de l'admin");
+          console.log(err);
+        }
+      });
+    }
+    if(user){
+      User.destroy(user).exec(function(err, usr){
+        User.create(admin).exec(function(err2, usr2){
+          if(err2){
+            console.log("euuuh. problème à la création de l'admin (mais on l'a trouvé)");
+            console.log(err2);
+          }
+          if(usr2){
+            console.log("Admin créé");
+          }
+        });
+      });
+    }
+  });
   // It's very important to trigger this callback method when you are finished
   // with the bootstrap!  (otherwise your server will never lift, since it's waiting on the bootstrap)
   cb();
