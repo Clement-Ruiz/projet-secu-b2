@@ -7,52 +7,71 @@
 
 module.exports = {
 
-
-	// Charge la page de sign-up --> new.ejs
 	signUp: function (req, res) {
-		var mail= req.param("email");
+		var params ={
+			email: req.param("email"),
+			password: req.param("password"),
+			firstName: req.param('firstName'),
+			lastName: req.param('lastName')
+		};
+		if (params.password != req.param('confirmation')){
+			return res.redirect('/signup', {message : "Password Confirmation failed"});
+		}
 		User.findOne({
-			email: mail
+			email: params.email
 		}).exec(function(err, usr){
+			console.log('user SignUp : searching for already existant users...');
 			if(err){
-				return res.negociate(err);
+				console.log('user Signup : Error '+err);
+				console.log('user SignUp : FAILED');
+				return res.negotiate(err);
 			}
 			else if (usr){
-				return res.send(400, {error: "This email is already used."});
+				return res.view('500');
 			}
 			else {
-				User.create(req.param.all()), function userCreated(err, user) {
+				var hasher = require("password-hash");
+				params.password = hasher.generate(params.password);
+				console.log('user SignUp : email free to use. Creating ...');
+				User.create(params, function(err, user) {
 					if(err){
-						return res.negociate(err);
+						console.log('user Signup : Error '+err);
+						console.log('user SignUp : FAILED');
+						return res.negotiate(err);
 					}
 					if(user) {
+						console.log('user SignUp : OK');
+						console.log('user SignUp : User ID '+user.id);
 						req.session.userID = user.id;
-						return res.view('user/profile', user);
+						return res.redirect('user/'+user.id);
 					}
 					else {
 						return res.view('user/new', user);
 					}
-				}
+				});
 			}
 		});
 	},
 
 	login: function (req, res) {
-		var mail= req.param("email");
+		var email= req.param("email");
 		var password= req.param("password");
 		User.findOne({
-			email: mail
+			email: email
 		}).exec(function(err, user){
 			if(err){
 				return res.negociate(err);
 			}
 			if (user) {
-				if (user.password === password){
-					req.session.userID = user.id;
-					return res.redirect('/user/'+req.session.userID);
+				var hasher = require("password-hash");
+        if (hasher.verify(password, user.password)) {
+					console.log('Login : '+user.email+' password match. Connecting ...');
+        	req.session.userID = user.id;
+					return res.redirect('/user/'+req.session.userID	);
 				}
 				else {
-					return res.send(400, {error: "Wrong password"});
+					console.log('Login : '+user.email+' typed wrong password')
+					return res.redirect('/login', {message : "Incorrect Password"});
 				}
 			}
 			else {
@@ -77,15 +96,33 @@ module.exports = {
 			id: id
 		}).exec(function(err, user){
 			if(err){
-				res.send(400, { error: "What the fuck is going on"});
+				return res.view('500');
+			}
+			else if (!user) {
+				return res.redirect('user/'+id);
 			}
 			else{
-				res.view('user/profile', user);
+				return res.view('user/profile', user);
 			}
 		})
 	},
 
 	update: function(req, res) {
-		var id = req.param("id")
+		if (req.session.userID === 1){
+			var id = req.param("id");
+		}
+		else {
+			var id = req.session.userID;
+		}
+		var newUser = req.params.all();
+		newUser.id = id;
+		User.update({id: id}, newUser).exec(function(err, usr){
+			if(err){
+				return res.view('500');
+			}
+			else {
+				return res.view('user/profile', usr);
+			}
+		});
 	},
 };

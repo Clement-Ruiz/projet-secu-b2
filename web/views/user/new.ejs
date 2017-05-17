@@ -1,21 +1,29 @@
 <h1> Formulaire d'inscriptions</h1><br>
-<form action="/user/create" method="POST" class="form-signin">
+<form action="/signup" method="POST" class="form-signin">
 	<h2 class="form-signin-heading">Création de compte</h2>
-	
+
 	<div class="control-group">
 		<input type="text" class="form-control" placeholder="Votre Nom d'utilisateur" name="name">
 	</div>
 
 	<div class="control-group">
-	<input type="text" class="form-control" placeholder="email" name="email">
+		<input type="text" class="form-control" placeholder="email" name="email">
 	</div>
 
 	<div class="control-group">
-	<input type="password" class="form-control" placeholder="Mot de passe" name="passwordname">
+		<input type="password" class="form-control" placeholder="Mot de passe" name="password">
 	</div>
 
 	<div class="control-group">
-	<input type="password" class="form-control" placeholder="Confirmer le mot de passe" name="confirmation"><br>
+		<input type="password" class="form-control" placeholder="Confirmer le mot de passe" name="confirmation">
+	</div>
+
+	<div class="control-group">
+		<input type="text" class="form-control" placeholder="Votre prénom" name="firstName">
+	</div>
+
+	<div class="control-group">
+		<input type="text" class="form-control" placeholder="Votre nom" name="lastName">
 	</div>
 
 	<input type="submit" class="btn btn-lg btn-primary btn-block" value="Create Account"/>

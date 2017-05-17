@@ -10,10 +10,11 @@
  */
 
 module.exports.bootstrap = function(cb) {
+  var hasher = require('password-hash');
   var admin = {
     id: 1,
     email: 'admin@webservice.com',
-    password: 'adminpass',
+    password: hasher.generate('adminpass'),
     firstName: 'Local',
     lastName: 'Admin'
   }
