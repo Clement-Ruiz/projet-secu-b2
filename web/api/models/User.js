@@ -53,5 +53,19 @@ module.exports = {
       // • contain at least one letter
       return _.isString(value) && value.length >= 8 && value.match(/[a-z]/i) && value.match(/[0-9]/);
     }
+  },
+
+  afterDestroy: function(destroyedRecords, cb){
+    Webftp.destroy({user: _.pluck(destroyedRecords, 'id')}).exec(function(){
+      console.log('Webtfps binded to deleted users have been removed');
+    });
+    Vpsuser.destroy({user: _.pluck(destroyedRecords, 'id')}).exec(function(){
+      console.log('Vpsusers binded to deleted users have been removed');
+    });
+    Vpsroot.destroy({user: _.pluck(destroyedRecords, 'id')}).exec(function(cb){
+      console.log('Vpsroots binded to deleted users have been removed');
+      return cb();
+    });
   }
+
 };
