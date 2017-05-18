@@ -11,8 +11,7 @@ module.exports = {
     name: {
 			type: 'string',
 			required: true,
-      unique: true,
-      alphanumericdashed: true,
+      alphanumeric: true,
       minLenght: 5
 		},
 		ports: {
@@ -33,33 +32,18 @@ module.exports = {
       alphanumeric: true,
       minLenght: 5
     },
-    mysqlPass: {
-      type: 'string',
-      required: true,
-      password: true
-    },
     ftpUser: {
       type: 'string',
       required: true,
       alphanumeric: true,
       minLenght: 5
     },
-    ftpPass: {
-      type: 'string',
-      required: true,
-      password: true
-    }
   },
 
-  types: {
-    password: function(value) {
-      // For all creates/updates of `User` records that specify a value for an attribute
-      // which declares itself `type: 'password'`, that value must:
-      // • be a string
-      // • be at least 8 characters long
-      // • contain at least one number
-      // • contain at least one letter
-      return _.isString(value) && value.length >= 8 && value.match(/[a-z]/i) && value.match(/[0-9]/);
-    }
+  afterDestroy: function(destroyedRecords, cb){
+    Container.destroy({: _.pluck(destroyedRecords, 'dockerid')}).exec(function(){
+      console.log('Containers binded to deleted Webftp have been removed');
+      return cb();
+    });
   }
 };

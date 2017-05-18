@@ -10,13 +10,12 @@ module.exports = {
   attributes: {
     number: {
       type: 'integer',
-      required: true,
-      min: 1500,
-      max: 64000
+      min: 56100,
+      max: 58000,
+      autoIncrement: true
     },
     container: {
       model: 'container',
-      required: true
     },
     webftp: {
       model: 'webftp'
@@ -27,6 +26,5 @@ module.exports = {
     vpsroot: {
       model: 'vpsroot'
     }
-
-  }
+  },
 };

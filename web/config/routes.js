@@ -61,25 +61,25 @@ module.exports.routes = {
 
   'get /user/:id/create/webftp': { view: 'container/webftp'},
 
-  'get /user/:id/create/vpsuser': { view: 'container/vpsuser'},
-
-  'get /user/:id/create/vpsroot': { view: 'container/vpsroot'},
+  // 'get /user/:id/create/vpsuser': { view: 'container/vpsuser'},
+  //
+  // 'get /user/:id/create/vpsroot': { view: 'container/vpsroot'},
 
   'post /user/:id/create/webftp' : {
     controller: 'WebftpController',
     action: 'add'
   },
 
-  'post /user/:id/create/vpsuser' : {
-    controller: 'VpsuserController',
-    action: 'add'
-  },
+  // 'post /user/:id/create/vpsuser' : {
+  //   controller: 'VpsuserController',
+  //   action: 'add'
+  // },
+  //
+  // 'post /user/:id/create/vpsroot' : {
+  //   controller: 'VpsrootController',
+  //   action: 'add'
+  // }
 
-  'post /user/:id/create/vpsroot' : {
-    controller: 'VpsrootController',
-    action: 'add'
-  }
-  
   /***************************************************************************
   *                                                                          *
   * Custom routes here...                                                    *

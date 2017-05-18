@@ -22,6 +22,11 @@ module.exports = {
       collection: 'port',
       via: 'container'
     }
+  },
 
+  afterDestroy: function(destroyedRecords, cb){
+    Port.destroy({: _.pluck(destroyedRecords, 'container')}).exec(function(){
+      console.log('Containers binded to deleted Webftp have been removed');
+      return cb();
   }
 };
