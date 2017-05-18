@@ -1,0 +1,28 @@
+<h1>Welcome to create your WebFTP Service !</h1>
+<p>Fill this form to provide your service<p><br>
+<form action="/signup" method="POST" class="form-signin">
+	<h2 class="form-signin-heading">Création de compte</h2>
+
+	<div class="control-group">
+		<input type="text" class="form-control" placeholder="Name of container" name="containername">
+	</div>
+
+	<div class="control-group">
+		<input type="text" class="form-control" placeholder="Mysql username" name="mysqlusername">
+	</div>
+
+	<div class="control-group">
+		<input type="password" class="form-control" placeholder="Mysql password" name="mysqlpassword">
+	</div>
+
+	<div class="control-group">
+		<input type="password" class="form-control" placeholder="Ftp username" name="ftpusername">
+	</div>
+
+	<div class="control-group">
+		<input type="text" class="form-control" placeholder="Ftp password" name="ftppassword">
+	</div>
+
+	<input type="submit" class="btn btn-lg btn-primary btn-block" value="Create Account"/>
+	<input type="hidden" name="_csrf" value="<%= _csrf %>" />
+</form>
