@@ -1,7 +1,7 @@
-<h1>Welcome to create your WebFTP Service !</h1>
-<p>Fill this form to provide your service<p><br>
+<h2 style="text-align: center">Welcome to create your WebFTP Service !</h2>
+<h3 style="text-align: center">Fill this form to provide your service</h3>
 <form action="/signup" method="POST" class="form-signin">
-	<h2 class="form-signin-heading">Création de compte</h2>
+	<h2 class="form-signin-heading">Création du webFTP</h2>
 
 	<div class="control-group">
 		<input type="text" class="form-control" placeholder="Name of container" name="containername">
@@ -23,6 +23,6 @@
 		<input type="text" class="form-control" placeholder="Ftp password" name="ftppassword">
 	</div>
 
-	<input type="submit" class="btn btn-lg btn-primary btn-block" value="Create Account"/>
+	<input type="submit" class="btn btn-lg btn-primary btn-block" value="create service"/>
 	<input type="hidden" name="_csrf" value="<%= _csrf %>" />
 </form>

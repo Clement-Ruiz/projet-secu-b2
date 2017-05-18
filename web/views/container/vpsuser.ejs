@@ -1,1 +1,12 @@
-<h1>In Construction. See You Later my super Brother !</h1>
+<h2 style="text-align: center">Welcome to create your VPS user Service !</h2>
+<h3 style="text-align: center">Fill this form to provide your service</h3><br>
+<form action="/signup" method="POST" class="form-signin">
+	<h2 class="form-signin-heading">Création du VPS user</h2>
+
+	<div class="control-group">
+		<input type="text" class="form-control" placeholder="Name of container" name="containername">
+	</div>
+
+	<input type="submit" class="btn btn-lg btn-primary btn-block" value="create service"/>
+	<input type="hidden" name="_csrf" value="<%= _csrf %>" />
+</form>
