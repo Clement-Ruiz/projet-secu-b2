@@ -42,7 +42,7 @@ module.exports = {
 					if(user) {
 						console.log('user SignUp : OK');
 						console.log('user SignUp : User ID '+user.id);
-						req.session.userID = user.id;
+						req.session.user = user;
 						return res.redirect('user/'+user.id);
 					}
 					else {
@@ -66,8 +66,8 @@ module.exports = {
 				var hasher = require("password-hash");
         if (hasher.verify(password, user.password)) {
 					console.log('Login : '+user.email+' password match. Connecting ...');
-        	req.session.userID = user.id;
-					return res.redirect('/user/'+req.session.userID	);
+        	req.session.user.id = user.id;
+					return res.redirect('/user/'+user.id	);
 				}
 				else {
 					console.log('Login : '+user.email+' typed wrong password')
@@ -81,20 +81,20 @@ module.exports = {
 	},
 
 	logout: function (req, res) {
-		req.session.userID = null
+		req.session.user = null
 		return res.redirect('/');
 	},
 
 	get: function(req, res) {
-		if (req.session.userID === 1){
+		if (req.session.user.id === 1){
 			var id= req.param("id");
 		}
 		else {
-			var id= req.session.userID;
+			var id= req.session.user.id;
 		}
 		User.findOne({
 			id: id
-		}).exec(function(err, user){
+		}).populate('webftps').populate('vpsusers').populate('vpsroots').exec(function(err, user){
 			if(err){
 				return res.view('500');
 			}
@@ -108,11 +108,11 @@ module.exports = {
 	},
 
 	update: function(req, res) {
-		if (req.session.userID === 1){
+		if (req.session.user.id === 1){
 			var id = req.param("id");
 		}
 		else {
-			var id = req.session.userID;
+			var id = req.session.user.id;
 		}
 		var newUser = req.params.all();
 		newUser.id = id;
@@ -121,8 +121,26 @@ module.exports = {
 				return res.view('500');
 			}
 			else {
-				return res.view('user/profile', usr);
+				return res.redirect('/user/'+id);
 			}
 		});
 	},
+
+	delete: function(req, res) {
+		if (req.session.user.id === 1){
+			var id = req.param("id");
+		}
+		else {
+			var id = req.session.user.id;
+		}
+		User.destroy({ id: id }).exec(function(err){
+			if(err){
+				return res.view('500');
+			}
+			else {
+				return User.logout(req, res);
+			}
+		})
+	}
+
 };
