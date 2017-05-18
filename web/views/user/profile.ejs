@@ -3,3 +3,31 @@
   <li>User ID : <%= id %></li>
   <li>User firstName : <%= firstName %></li>
 </ul>
+<h2>Service list</h2>
+
+// La liste des container mais c'est ultra bugué
+// Donc enlevé les lignes commenté pour que sa compile XD
+
+/*<ul>
+	<% webftps.forEach(function(item){ %>
+    	<li><%= item.name %></li>
+    	<li><%= item.ports %></li>
+    	<li><%= item.ftpuser %></li>
+    	<li><%= item.mysqlUser %></li>
+	<% } %>
+</ul>
+<ul>
+	<% vpsusers.forEach(function(item){ %>
+    	<li><%= item.name %></li>
+    	<li><%= item.ports %></li>
+    	<li><%= item.user %></li>
+	<% } %>
+</ul>
+<ul>
+	<% vpsroot.forEach(function(item){ %>
+    	<li><%= item.name %></li>
+    	<li><%= item.ports %></li>
+    	<li><%= item.user %></li>
+	<% } %>
+</ul> */
+<a href="/user/:id/create" class="button big ">Ajouter un service</a>
